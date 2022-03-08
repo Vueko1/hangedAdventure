@@ -3,7 +3,15 @@ let lifeLoss = 0;
 const loss = 'You lost...';
 const victory = 'You won!';
 const wordSpace = document.querySelector('.word');
-let gameStatus = false;
+const gameEnd = document.querySelector('#finishScreen');
+const scoreMessage = document.querySelector('#scoreMessage');
+let finalScore = 0;
+let combo = 0;
+
+const scoreCalculation = (score, combo) => {
+    finalScore += score * combo;
+    console.log(finalScore);
+}
 
 const getWord = async resource => {
     const response = await fetch(resource);
@@ -12,77 +20,105 @@ const getWord = async resource => {
         throw new Error('cannot fetch word');
     }
 
+    // picking random word from defined range
+    const randomWord = Math.floor(Math.random() * (2287 - 1) + 1);
     const word = await response.json();
-    return word[0];
+    return word[randomWord];
 }
 
-getWord('https://random-word-api.herokuapp.com/word?number=1&swear=0')
-    .then(word => {
-        console.log(word);
-        guessWord = word;
+// displaying game over screen with aquired points and enabling user
+// to play again by reloading site
+const gameOver = score => {
+    gameEnd.classList.add('finishScreen');
+    scoreMessage.classList.add('scoreMessage');
+    scoreMessage.innerHTML =
+        `You lost with score of ${score} points ! <br>
+    <button class="again">Play Again</button>`
 
-        for (let i = 0; i < word.length; i++) {
-            wordSpace.innerHTML += `<span class="word__letter" id="letter_${i}"> _ </span>`;
-        }
-
-        document.querySelector('.cover').classList.add('animatedRemoval');
-
+    const buttonAgain = document.querySelector('.again');
+    buttonAgain.addEventListener('click', () => {
+        location.reload();
     })
-    .catch(err => document.querySelector('.cover').textContent = err);
+}
 
+let newWord = () => {
+    getWord('words.json')
+        .then(word => {
+
+            // assigning word to a global value
+            guessWord = word;
+
+            wordSpace.innerHTML = "";
+            // creating span tags depending on words' length
+            for (let i = 0; i < word.length; i++) {
+                wordSpace.innerHTML += `<span class="word__letter" id="letter_${i}"> _ </span>`;
+            }
+
+            // smoothly removing loading screen
+            document.querySelector('.cover').classList.add('animatedRemoval');
+
+        })
+        .catch(err => document.querySelector('.cover').textContent = err);
+}
+
+newWord();
+
+
+// creating array of clickable buttons
 const buttonList = Array.from(document.querySelectorAll('.keyboard__button'));
+
 
 buttonList.forEach(e => {
     e.addEventListener('click', () => {
-        if(gameStatus){
-            return;
-        }
-        let correctCheck = 0;
+
+        // checking if any letter was guessed
+        let isCorrect = false;
         for (i = 0; i < guessWord.length; i++) {
-            if(e.textContent === guessWord[i].toUpperCase() && document.getElementById('letter_' + i).textContent != e.textContent) {
+            if (e.textContent === guessWord[i].toUpperCase() && document.getElementById('letter_' + i).textContent != e.textContent) {
                 document.getElementById('letter_' + i).textContent = `${e.textContent}`;
-                correctCheck++;
+                isCorrect = true;
+                combo++;
+                scoreCalculation(10, combo);
             }
-            if(!wordSpace.textContent.includes('_') && wordSpace.textContent != loss && wordSpace.textContent != victory){
-                wordSpace.textContent = victory;
-                wordSpace.classList.add('animatedOutcome');
-                gameStatus = true;
+
+            // disabling button after it has been clicked to prevent multiple clicks
+            // of the wrong or already guessed letter
+            e.style.visibility = 'hidden';
+
+            // ending the game if all letters have been found
+            if (!wordSpace.textContent.includes('_') && wordSpace.textContent != loss && wordSpace.textContent != victory) {
+                newWord();
+                buttonList.forEach(e => {
+                    e.style.visibility = 'visible';
+                })
+                if(lifeLoss <= 5) {
+                    lifeLoss = 0;
+                } else {
+                    lifeLoss -= 5;
+                }
                 break;
             }
         }
 
-        e.style.visibility = 'hidden';
-
-        if(correctCheck == 0) {
+        // if value of isCorrect is false incrementing lifeLoss value
+        if (!isCorrect) {
             lifeLoss++;
+            combo = 0;
         }
 
+        // creating percentage value for the helthbar
+        let percentValue = 100 - (lifeLoss * 10);
+        console.log(percentValue);
+
+        // setting the width of the fill in healthbar depending on wrong
+        // letter picked by the user
         const healthbar = document.querySelector('.health__fill');
-        switch(lifeLoss){
-            case 1: healthbar.style.width = '90%';
-            break;
-            case 2: healthbar.style.width = '80%';
-            break;
-            case 3: healthbar.style.width = '70%';
-            break;
-            case 4: healthbar.style.width = '60%';
-            break;
-            case 5: healthbar.style.width = '50%';
-            break;
-            case 6: healthbar.style.width = '40%';
-            break;
-            case 7: healthbar.style.width = '30%';
-            break;
-            case 8: healthbar.style.width = '20%';
-            break;
-            case 9: healthbar.style.width = '10%';
-            break;
-            case 10: {
-                healthbar.style.width = '0';
-                wordSpace.textContent = loss;
-                wordSpace.classList.add('animatedOutcome');
-                gameStatus = true;
-            };
+        healthbar.style.width = percentValue + '%';
+
+        // ending the game if helth dropps to 0
+        if (percentValue == '0') {
+            gameOver(finalScore);
+            gameStatus = true;
         }
     })
 });

@@ -20,6 +20,7 @@ body {
     font-size: 24px;
     color: rgb(75, 24, 3);
     transition: 0.3s ease-in;
+    position: relative;
 }
 
 header{
@@ -65,6 +66,39 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.finishScreen{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    background-color: rgba(66, 61, 61, 0.397);
+
+    .scoreMessage {
+        background-color: rgb(255, 225, 187);
+        padding: 2em 2em;
+        font-family: 'Francois One';
+        text-align: center;
+        border: 6px solid rgb(75, 24, 3);
+        border-radius: 10px;
+        margin-inline: 5%;
+
+    }
+
+    .again {
+        border: 2px solid rgb(75, 24, 3);
+        color: rgb(75, 24, 3);
+        border-radius: 4px;
+        padding: 1em;
+        margin-top: 1em;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+    }
 }
 
 .animatedRemoval {

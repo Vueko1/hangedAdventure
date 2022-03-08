@@ -22,6 +22,7 @@ body {
   color: #4b1803;
   -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
+  position: relative;
 }
 
 header {
@@ -89,6 +90,44 @@ footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.finishScreen {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 2;
+  background-color: rgba(66, 61, 61, 0.397);
+}
+
+.finishScreen .scoreMessage {
+  background-color: #ffe1bb;
+  padding: 2em 2em;
+  font-family: 'Francois One';
+  text-align: center;
+  border: 6px solid #4b1803;
+  border-radius: 10px;
+  margin-inline: 5%;
+}
+
+.finishScreen .again {
+  border: 2px solid #4b1803;
+  color: #4b1803;
+  border-radius: 4px;
+  padding: 1em;
+  margin-top: 1em;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .animatedRemoval {
