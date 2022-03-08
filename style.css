@@ -1,6 +1,7 @@
 html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-size: 16px;
 }
 
 *,
@@ -47,7 +48,7 @@ header {
 
 header h1 {
   line-height: 4.2rem;
-  max-width: 50%;
+  text-align: center;
 }
 
 main {
@@ -213,6 +214,7 @@ footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  font-size: 1.5rem;
 }
 
 .animatedOutcome {
@@ -275,7 +277,29 @@ footer {
   cursor: pointer;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 740px) {
+  html {
+    font-size: 12px;
+  }
+  header {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 1em;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .health {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 400px) {
   html {
     font-size: 10px;
   }
@@ -291,6 +315,9 @@ footer {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+  }
+  .health {
+    width: 80%;
   }
 }
 /*# sourceMappingURL=style.css.map */
