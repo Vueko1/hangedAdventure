@@ -2,7 +2,7 @@ html {
     box-sizing: border-box;
     font-size: 16px;
 }
-
+.finishScreen
 *,
 *::after,
 *::before {
@@ -44,6 +44,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 1em;
 }
 
 footer{
@@ -56,6 +57,13 @@ footer{
     width: 100%;
     text-align: center;
 }
+
+button {
+    border: none; 
+    cursor: pointer;
+    background: none;
+}
+
 
 .cover {
     position: fixed;
@@ -93,6 +101,7 @@ footer{
     .again {
         border: 2px solid rgb(75, 24, 3);
         color: rgb(75, 24, 3);
+        background-color: rgb(243, 192, 129);
         border-radius: 4px;
         padding: 1em;
         margin-top: 1em;
@@ -102,6 +111,83 @@ footer{
     }
 }
 
+.highscores {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    background-color: rgba(66, 61, 61, 0.397);
+    text-align: left;
+
+    &__wrapper {
+        background-color: rgb(250, 218, 178);
+        border: 4px solid rgb(75, 24, 3);
+        padding: 3em;
+        border-radius: 1em;
+        position: relative;
+    }
+
+    &__close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+
+    &__score {
+        padding-left: 1em;
+    }
+
+    &__header {
+        margin-top: -1em;
+    }
+}
+
+.highscores--hidden{
+    visibility: hidden;
+}
+
+.top-wrapper {
+    display: flex;
+    width: 100%;
+    padding-block: 1em;
+    flex: 1 1 0px;
+    justify-content: space-between;
+}
+
+.utilities,
+.progress {
+    padding-inline: 1em;
+}
+
+.utilities {
+
+
+    &__list {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    &__item {
+        display: inline;
+        display: flex;
+        flex-direction: row;
+    }
+
+    &__bttn {
+        height: 30px;
+        width: 30px;
+    }
+
+    .fa-solid {
+        transform: scale(2);
+    }
+}
 .animatedRemoval {
     animation: 1s fadeIn;
     animation-fill-mode: forwards;
@@ -146,6 +232,14 @@ footer{
         border-radius: 7px;
         transition: 0.2s ease-in;
     }
+}
+
+.progress {
+    font-family: 'Francois One';
+    font-size: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
 }
 
 .word {

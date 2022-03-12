@@ -1,14 +1,12 @@
 html {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   font-size: 16px;
 }
 
-*,
+.finishScreen *,
 *::after,
 *::before {
-  -webkit-box-sizing: inherit;
-          box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 * {
@@ -18,50 +16,33 @@ html {
 
 body {
   background-color: #f5e0c6;
-  font-family: 'Kaushan Script', cursive;
+  font-family: "Kaushan Script", cursive;
   font-size: 24px;
   color: #4b1803;
-  -webkit-transition: 0.3s ease-in;
   transition: 0.3s ease-in;
   position: relative;
 }
 
 header {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   padding-bottom: 0.9rem;
   border-bottom: 5px double #4b1803;
   background-color: #ebc99e;
   padding: 1rem;
 }
-
 header h1 {
   line-height: 4.2rem;
   text-align: center;
 }
 
 main {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1em;
 }
 
 footer {
@@ -69,10 +50,16 @@ footer {
   height: 1rem;
   position: fixed;
   bottom: 0;
-  font-family: 'Times New Roman';
+  font-family: "Times New Roman";
   font-size: 0.7rem;
   width: 100%;
   text-align: center;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  background: none;
 }
 
 .cover {
@@ -82,53 +69,107 @@ footer {
   background-color: #ffe1bb;
   z-index: 1;
   text-align: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .finishScreen {
   width: 100vw;
   height: 100vh;
   position: fixed;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   z-index: 2;
   background-color: rgba(66, 61, 61, 0.397);
 }
-
 .finishScreen .scoreMessage {
   background-color: #ffe1bb;
   padding: 2em 2em;
-  font-family: 'Francois One';
+  font-family: "Francois One";
   text-align: center;
   border: 6px solid #4b1803;
   border-radius: 10px;
   margin-inline: 5%;
 }
-
 .finishScreen .again {
   border: 2px solid #4b1803;
   color: #4b1803;
+  background-color: #f3c081;
   border-radius: 4px;
   padding: 1em;
   margin-top: 1em;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
+}
+
+.highscores {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  background-color: rgba(66, 61, 61, 0.397);
+  text-align: left;
+}
+.highscores__wrapper {
+  background-color: #fadab2;
+  border: 4px solid #4b1803;
+  padding: 3em;
+  border-radius: 1em;
+  position: relative;
+}
+.highscores__close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.highscores__score {
+  padding-left: 1em;
+}
+.highscores__header {
+  margin-top: -1em;
+}
+
+.highscores--hidden {
+  visibility: hidden;
+}
+
+.top-wrapper {
+  display: flex;
+  width: 100%;
+  padding-block: 1em;
+  flex: 1 1 0px;
+  justify-content: space-between;
+}
+
+.utilities,
+.progress {
+  padding-inline: 1em;
+}
+
+.utilities__list {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+.utilities__item {
+  display: inline;
+  display: flex;
+  flex-direction: row;
+}
+.utilities__bttn {
+  height: 30px;
+  width: 30px;
+}
+.utilities .fa-solid {
+  transform: scale(2);
 }
 
 .animatedRemoval {
@@ -157,63 +198,51 @@ footer {
     visibility: hidden;
   }
 }
-
 .health {
   width: 40%;
   min-width: 200px;
   height: 20px;
   background-color: #755e41;
   border-radius: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  align-items: center;
+  justify-content: flex-start;
   position: relative;
   padding-inline: 3px;
 }
-
 .health::before {
   content: "HP";
   position: absolute;
   font-size: 0.925rem;
-  font-family: 'Francois One';
+  font-family: "Francois One";
   left: 50%;
-  -webkit-transform: translateX(-10px);
-          transform: translateX(-10px);
+  transform: translateX(-10px);
   color: #4b1803;
 }
-
 .health__fill {
   height: 14px;
   background-color: #14bb14;
   width: 100%;
   border-radius: 7px;
-  -webkit-transition: 0.2s ease-in;
   transition: 0.2s ease-in;
+}
+
+.progress {
+  font-family: "Francois One";
+  font-size: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
 }
 
 .word {
   min-height: 20vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  flex-direction: row;
   gap: 1rem;
-  font-family: 'Merriweather';
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  font-family: "Merriweather";
+  justify-content: center;
+  align-items: center;
   font-size: 1.5rem;
 }
 
@@ -241,37 +270,24 @@ footer {
     opacity: 1;
   }
 }
-
 .keyboard {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
 .keyboard__row {
   margin-block: 0.6rem;
 }
-
 .keyboard__button {
   padding: 0.7rem;
-  font-family: 'Francois One';
+  font-family: "Francois One";
   font-size: 1rem;
   border: 2px solid #4b1803;
   color: #4b1803;
   border-radius: 4px;
   background-color: #f1eae1;
 }
-
 .keyboard__button:hover {
   background-color: #fadab2;
   cursor: pointer;
@@ -281,43 +297,31 @@ footer {
   html {
     font-size: 12px;
   }
+
   header {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     gap: 1em;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    justify-content: center;
+    align-items: center;
   }
+
   .health {
     width: 80%;
   }
 }
-
 @media screen and (max-width: 400px) {
   html {
     font-size: 10px;
   }
+
   header {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     gap: 1em;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    justify-content: center;
+    align-items: center;
   }
+
   .health {
     width: 80%;
   }
-}
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

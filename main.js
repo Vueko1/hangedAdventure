@@ -5,25 +5,23 @@ const victory = 'You won!';
 const wordSpace = document.querySelector('.word');
 const gameEnd = document.querySelector('#finishScreen');
 const scoreMessage = document.querySelector('#scoreMessage');
+const scoreDisplay = document.querySelector('.progress__score');
+const comboDisplay = document.querySelector('.progress__combo');
+const scoreIcon = document.querySelector('.utilities__icon--score');
+const helpIcon = document.querySelector('.utilities__icon--help');
+const scoreClose = document.querySelector('.highscores__close');
+const highscores = document.querySelector('.highscores');
 let finalScore = 0;
-let combo = 0;
+let combo = 1;
 
-const scoreCalculation = (score, combo) => {
-    finalScore += score * combo;
-    console.log(finalScore);
+const showData = () => {
+    scoreDisplay.textContent = finalScore;
+    comboDisplay.textContent = combo;
 }
 
-const getWord = async resource => {
-    const response = await fetch(resource);
-
-    if (response.status !== 200) {
-        throw new Error('cannot fetch word');
-    }
-
-    // picking random word from defined range
-    const randomWord = Math.floor(Math.random() * (2287 - 1) + 1);
-    const word = await response.json();
-    return word[randomWord];
+const scoreCalculation = (score, comboCounter) => {
+    finalScore += score * comboCounter;
+    showData();
 }
 
 // displaying game over screen with aquired points and enabling user
@@ -34,6 +32,7 @@ const gameOver = score => {
     scoreMessage.innerHTML =
         `You lost with score of ${score} points ! <br>
     <button class="again">Play Again</button>`
+    settingScores(score);
 
     const buttonAgain = document.querySelector('.again');
     buttonAgain.addEventListener('click', () => {
@@ -67,6 +66,16 @@ newWord();
 // creating array of clickable buttons
 const buttonList = Array.from(document.querySelectorAll('.keyboard__button'));
 
+scoreIcon.addEventListener('click', () => {
+    const highscoresContent = document.querySelector('.highscores__content');
+
+    highscores.classList.remove('highscores--hidden');
+    showingScores();
+})
+
+scoreClose.addEventListener('click', () => {
+    highscores.classList.add('highscores--hidden');
+})
 
 buttonList.forEach(e => {
     e.addEventListener('click', () => {
@@ -77,15 +86,15 @@ buttonList.forEach(e => {
             if (e.textContent === guessWord[i].toUpperCase() && document.getElementById('letter_' + i).textContent != e.textContent) {
                 document.getElementById('letter_' + i).textContent = `${e.textContent}`;
                 isCorrect = true;
-                combo++;
                 scoreCalculation(10, combo);
+                combo++;
             }
 
             // disabling button after it has been clicked to prevent multiple clicks
             // of the wrong or already guessed letter
             e.style.visibility = 'hidden';
 
-            // ending the game if all letters have been found
+            // fetching another word
             if (!wordSpace.textContent.includes('_') && wordSpace.textContent != loss && wordSpace.textContent != victory) {
                 newWord();
                 buttonList.forEach(e => {
@@ -103,7 +112,8 @@ buttonList.forEach(e => {
         // if value of isCorrect is false incrementing lifeLoss value
         if (!isCorrect) {
             lifeLoss++;
-            combo = 0;
+            combo = 1;
+            showData();
         }
 
         // creating percentage value for the helthbar

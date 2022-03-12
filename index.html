@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hanged Adventure</title>
+    <script src="https://kit.fontawesome.com/8bfc4a776e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +19,13 @@
     <div id="finishScreen">
         <div id="scoreMessage"></div>
     </div>
+    <div class="highscores highscores--hidden">
+        <div class="highscores__wrapper">
+            <button class="highscores__close"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="highscores__header">top 5 scores</h2>
+            <div class="highscores__content"></div>
+        </div>
+    </div>
     <div class="cover">loading...</div>
     <header>
         <h1>Hanged Adventure</h1>
@@ -26,6 +34,19 @@
         </div>
     </header>
     <main>
+
+        <div class="top-wrapper">
+            <div class="utilities">
+                <ul class="utilities__list">
+                    <li class="utilities__item"><button class="utilities__bttn"><i class="fa-solid fa-star utilities__icon utilities__icon--score"></i></button></li>
+                    <li class="utilities__item"><button class="utilities__bttn"><i class="fa-solid fa-circle-question utilities__icon utilities__icon--help"></i></button></li>
+                </ul>
+            </div>
+            <div class="progress">
+                <span class="progress__score-text">Score: <output class="progress__score">0</output></span>
+                <span class="progress__combo-text">Combo: x<output class="progress__combo">1</output></span>
+            </div>
+        </div>
         <div class="word"></div>
         <div class="keyboard">
             <div class="keyboard__row">
@@ -65,6 +86,8 @@
     <footer>
         <p>Browser game created by Vueko&copy;</p>
     </footer>
+    <script src="apiCall.js"></script>
+    <script src="localStorage.js"></script>
     <script src="main.js"></script>
 </body>
 
